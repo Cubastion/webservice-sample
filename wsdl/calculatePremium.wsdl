@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml">
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/xml">
+			<xsd:element name="calculatePremiumInput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sumInsured" type="xsd:double"/>
+						<xsd:element name="age" type="xsd:int"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="calculatePremiumOutput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="premium" type="xsd:double"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CalculatePremiumRequest">
+		<wsdl:part name="CalculatePremiumRequest" element="tns:calculatePremiumInput"/>
+	</wsdl:message>
+	<wsdl:message name="CalculatePremiumResponse">
+		<wsdl:part name="CalculatePremiumResponse" element="tns:calculatePremiumOutput"/>
+	</wsdl:message>
+	<wsdl:portType name="CalculatePremiumPortType">
+		<wsdl:operation name="CalculatePremium_Operation">
+			<wsdl:input message="tns:CalculatePremiumRequest"/>
+			<wsdl:output message="tns:CalculatePremiumResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CalculatePremium_Binding" type="tns:CalculatePremiumPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CalculatePremium_Operation">
+			<soap:operation soapAction="http://cubastion.net/xml/CalculatePremium_Operation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CalculatePremium_Service">
+		<wsdl:port name="CalculatePremium_Port" binding="tns:CalculatePremium_Binding">
+			<soap:address location="http://localhost:8081/calculatePremium"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

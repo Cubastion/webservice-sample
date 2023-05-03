@@ -70,14 +70,65 @@ const submitHealthPolicyService = {
   }
 };
 
-let srWSDL = path.join(__dirname, "./wsdl/createSR.wsdl");
-let expenseReportWSDL = path.join(__dirname, "./wsdl/submitExpenseReport.wsdl");
-let healthPolicyWSDL = path.join(__dirname, "./wsdl/submitHealthPolicy.wsdl");
+const calculatePremiumService = {
+  CalculatePremium_Service: {
+    CalculatePremium_Port: {
+      CalculatePremium_Operation: function (args) {
+        console.log('Request Body: '+JSON.stringify(args));
+        const age = args.age;
+        const sumInsured = args.sumInsured;
+        const factor = 0 < age <= 10 ? 4 : 10 < age <= 25 ? 5 : 25 < age <= 45 ? 6 : 45 < age <= 60 ? 7 : 60 < age ? 9 : 1;
+        return {
+          premium: sumInsured * factor/100,
+        };
+      }
+    }
+  }
+};
 
-let srWSDLXML = fs.readFileSync(srWSDL, "utf8");
-let expenseReportWSDLXML = fs.readFileSync(expenseReportWSDL, "utf8");
-let healthPolicyWSDLXML = fs.readFileSync(healthPolicyWSDL, "utf8");
+const fetchPriceService = {
+  FetchPrice_Service: {
+    FetchPrice_Port: {
+      FetchPrice_Operation: function (args) {
+        console.log('Request Body: '+JSON.stringify(args));
+        let ListOfItems = {items: []};
+        const min = 20, max = 40;
+        args.ListOfItems?.items?.forEach((data) => {
+          ListOfItems.items.push({productName: data.productName, unitPrice: (Math.floor(Math.random() * (max - min + 1)) + min)*100});
+        });
+        return {
+          bookingId: args.bookingId,
+          ListOfItems: ListOfItems
+        };
+      }
+    }
+  }
+};
 
-soap.listen(server, "/createSR", createSRService, srWSDLXML);
-soap.listen(server, "/submitExpenseReport", submitExpenseReportService, expenseReportWSDLXML);
-soap.listen(server, "/submitHealthPolicy", submitHealthPolicyService, healthPolicyWSDLXML);
+const validatePANService = {
+  ValidatePAN_Service: {
+    ValidatePAN_Port: {
+      ValidatePAN_Operation: function (args) {
+        console.log('Request Body: '+JSON.stringify(args));
+        const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        return {
+          status_message: regex.test(args.pan) ? "PAN Number format is valid" : "PAN Number format in not valid"
+        };
+      }
+    }
+  }
+};
+
+let srWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/createSR.wsdl"), "utf8");
+let expenseReportWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/submitExpenseReport.wsdl"), "utf8");
+let healthPolicyWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/submitHealthPolicy.wsdl"), "utf8");
+let calculatePremiumWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/calculatePremium.wsdl"), "utf8");
+let fetchPriceWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/fetchPrice.wsdl"), "utf8");
+let validatePANWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/validatePAN.wsdl"), "utf8");
+
+soap.listen(server, "/createSR", createSRService, srWSDL);
+soap.listen(server, "/submitExpenseReport", submitExpenseReportService, expenseReportWSDL);
+soap.listen(server, "/submitHealthPolicy", submitHealthPolicyService, healthPolicyWSDL);
+soap.listen(server, "/calculatePremium", calculatePremiumService, calculatePremiumWSDL);
+soap.listen(server, "/calculatePremium", fetchPriceService, fetchPriceWSDL);
+soap.listen(server, "/validatePAN", validatePANService, validatePANWSDL);
