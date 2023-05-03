@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitExpenseReport">
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/xml">
+			<xsd:import namespace="http://cubastion.net/submitExpenseReport" />
+			<xsd:element name="submitExpenseReportInput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="integrationId" type="xsd:string"/>
+						<xsd:element name="type" type="xsd:string"/>
+						<xsd:element name="startDate" type="xsd:date"/>
+						<xsd:element name="endDate" type="xsd:date"/>
+						<xsd:element name="totalAmount" type="xsd:double"/>
+						<xsd:element name="currencyCode" type="xsd:string"/>
+						<xsd:element ref="xsd1:ListOfExpenseReportItemInput"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="submitExpenseReportOutput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="integrationId" type="xsd:string"/>
+						<xsd:element name="expenseReportNumber" type="xsd:string"/>
+						<xsd:element ref="xsd1:ListOfExpenseReportItemOutput"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
+			<xsd:element name="ListOfExpenseReportItemInput" type="xsd1:ListOfExpenseReportItemInput"/>
+			<xsd:complexType name="ListOfExpenseReportItemInput">
+				<xsd:sequence>
+					<xsd:element name="expenseReportItem" maxOccurs="unbounded" minOccurs="1" type="xsd1:ExpenseReportItemInput"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ExpenseReportItemInput">
+				<xsd:sequence>
+					<xsd:element name="integrationId" type="xsd:string"/>
+					<xsd:element name="billDate" type="xsd:date"/>
+					<xsd:element name="billNumber" type="xsd:string"/>
+					<xsd:element name="billType" type="xsd:string"/>
+					<xsd:element name="currencyCode" type="xsd:string"/>
+					<xsd:element name="billAmount" type="xsd:double"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
+			<xsd:element name="ListOfExpenseReportItemOutput" type="xsd1:ListOfExpenseReportItemOutput"/>
+			<xsd:complexType name="ListOfExpenseReportItemOutput">
+				<xsd:sequence>
+					<xsd:element name="expenseReportItem" maxOccurs="unbounded" minOccurs="1" type="xsd1:ExpenseReportItemOutput"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ExpenseReportItemOutput">
+				<xsd:sequence>
+					<xsd:element name="integrationId" type="xsd:string"/>
+					<xsd:element name="expenseReportItemNumber" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="SubmitExpenseReportRequest">
+		<wsdl:part name="submitExpenseReportRequest" element="tns:submitExpenseReportInput"/>
+	</wsdl:message>
+	<wsdl:message name="SubmitExpenseReportResponse">
+		<wsdl:part name="submitExpenseReportResponse" element="tns:submitExpenseReportOutput"/>
+	</wsdl:message>
+	<wsdl:portType name="SubmitExpenseReportPortType">
+		<wsdl:operation name="SubmitExpenseReport_Operation">
+			<wsdl:input message="tns:SubmitExpenseReportRequest"/>
+			<wsdl:output message="tns:SubmitExpenseReportResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SubmitExpenseReport_Binding" type="tns:SubmitExpenseReportPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SubmitExpenseReport_Operation">
+			<soap:operation soapAction="http://cubastion.net/xml/SubmitExpenseReport_Operation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SubmitExpenseReport_Service">
+		<wsdl:port name="SubmitExpenseReport_Port" binding="tns:SubmitExpenseReport_Binding">
+			<soap:address location="http://localhost:8081/submitExpenseReport"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitExpenseReport">
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/xml">
+			<xsd:import namespace="http://cubastion.net/submitExpenseReport" />
+			<xsd:element name="createSRInput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="integrationId" type="xsd:string"/>
+						<xsd:element name="accountName" type="xsd:string"/>
+						<xsd:element name="type" type="xsd:string"/>
+						<xsd:element name="raiseDate" type="xsd:date"/>
+						<xsd:element name="comments" type="xsd:string"/>
+						<xsd:element ref="xsd1:ListOfDFF"/>
+						<xsd:element ref="xsd1:ListOfTask"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createSROutput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="integrationId" type="xsd:string"/>
+						<xsd:element name="srNumber" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
+			<xsd:element name="ListOfDFF" type="xsd1:ListOfDFF"/>
+			<xsd:complexType name="ListOfDFF">
+				<xsd:sequence>
+					<xsd:element name="dff" maxOccurs="unbounded" minOccurs="1" type="xsd1:DFF"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DFF">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="value" type="xsd:string"/>
+					<xsd:element name="mandatoryFlag" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
+			<xsd:element name="ListOfTask" type="xsd1:ListOfTask"/>
+			<xsd:complexType name="ListOfTask">
+				<xsd:sequence>
+					<xsd:element name="task" maxOccurs="unbounded" minOccurs="1" type="xsd1:Task"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Task">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateSRRequest">
+		<wsdl:part name="createSRRequest" element="tns:createSRInput"/>
+	</wsdl:message>
+	<wsdl:message name="CreateSRResponse">
+		<wsdl:part name="createSRResponse" element="tns:createSROutput"/>
+	</wsdl:message>
+	<wsdl:portType name="CreateSRPortType">
+		<wsdl:operation name="CreateSR_Operation">
+			<wsdl:input message="tns:CreateSRRequest"/>
+			<wsdl:output message="tns:CreateSRResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CreateSR_Binding" type="tns:CreateSRPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateSR_Operation">
+			<soap:operation soapAction="http://cubastion.net/xml/CreateSR_Operation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CreateSR_Service">
+		<wsdl:port name="CreateSR_Port" binding="tns:CreateSR_Binding">
+			<soap:address location="http://localhost:8081/createSR"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
