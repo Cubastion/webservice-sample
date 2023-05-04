@@ -16,6 +16,10 @@
     "http": "^0.0.1-security",
     "md5": "^2.3.0",
     "path": "^0.12.7",
-    "soap": "^1.0.0"
+    "soap": "^1.0.0",
+    "swagger-ui-express": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3"
   }
 }

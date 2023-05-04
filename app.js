@@ -2,14 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const md5 = require("md5");
-let path = require("path");
+const path = require("path");
 const app = express();
 const soap = require("soap");
 const server = require("http").createServer(app);
+const swaggerUi = require('swagger-ui-express');
+const apiDocumentation = require('./docs/apidoc');
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
 
 server.listen(8081, () => {
   console.log("Application started and Listening on port 8081");
