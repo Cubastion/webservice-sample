@@ -45,7 +45,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CalculatePremium_Service">
 		<wsdl:port name="CalculatePremium_Port" binding="tns:CalculatePremium_Binding">
-			<soap:address location="http://localhost:8081/calculatePremium"/>
+			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/calculatePremium"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

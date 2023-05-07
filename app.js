@@ -112,7 +112,7 @@ const validatePANService = {
       ValidatePAN_Operation: function (args) {
         const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
         return {
-          status_message: regex.test(args.pan) ? "PAN Number format is valid" : "PAN Number format in not valid"
+          status_message: regex.test(args.panNumber) ? "PAN Number format is valid" : "PAN Number format in not valid"
         };
       }
     }

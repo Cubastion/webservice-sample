@@ -80,7 +80,7 @@
 	</wsdl:binding>
 	<wsdl:service name="CreateSR_Service">
 		<wsdl:port name="CreateSR_Port" binding="tns:CreateSR_Binding">
-			<soap:address location="http://localhost:8081/createSR"/>
+			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/createSR"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

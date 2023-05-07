@@ -85,7 +85,7 @@
 	</wsdl:binding>
 	<wsdl:service name="SubmitExpenseReport_Service">
 		<wsdl:port name="SubmitExpenseReport_Port" binding="tns:SubmitExpenseReport_Binding">
-			<soap:address location="http://localhost:8081/submitExpenseReport"/>
+			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/submitExpenseReport"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

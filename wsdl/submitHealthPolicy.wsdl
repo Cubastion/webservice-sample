@@ -39,7 +39,7 @@
 			<xsd:complexType name="InsuredInput">
 				<xsd:sequence>
 					<xsd:element name="integrationId" type="xsd:string"/>
-					<xsd:element name="name" type="xsd:date"/>
+					<xsd:element name="name" type="xsd:string"/>
 					<xsd:element name="phone" type="xsd:string"/>
 					<xsd:element name="email" type="xsd:string"/>
 					<xsd:element name="age" type="xsd:int"/>
@@ -90,7 +90,7 @@
 	</wsdl:binding>
 	<wsdl:service name="SubmitHealthPolicy_Service">
 		<wsdl:port name="SubmitHealthPolicy_Port" binding="tns:SubmitHealthPolicy_Binding">
-			<soap:address location="http://localhost:8081/submitHealthPolicy"/>
+			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/submitHealthPolicy"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
