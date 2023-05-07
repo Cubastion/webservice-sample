@@ -1,44 +1,43 @@
-const {createUser, createUserBody, deleteUser} = require("./users");
+const {createSR, createSRBody} = require("./serviceRequest");
 
 const apiDocumentation = {
     openapi: "3.0.3",
     info: {
         version: '1.0.0',
-        title: 'Sample REST API - Documentation',
-        description: 'Sample REST API - Documentation',
+        title: 'Siebel Training REST API',
+        description: 'Sample REST APIs for Siebel Training',
     },
     servers: [
         {
-            url: 'http://localhost:8081/',
+            url: 'http://webservice.ws.svc.cluster.local:8081/api/v1/rest/',
             description: 'Training Server',
         },
     ],
-    tags: [
-        {
-            name: 'Roles',
-        },
-        {
-            name: 'Users',
-        },
-    ],
     paths: {
-        "/users": {
-            post: createUser,
+        "/createSR": {
+            post: createSR,
         },
-        "/users/{id}": {
-            delete: deleteUser,
-        },
+        // "/submitExpenseReport": {
+        //     post: createUser,
+        // },
+        // "/submitHealthPolicy": {
+        //     post: createUser,
+        // },
+        // "/calculatePremium": {
+        //     post: createUser,
+        // },
+        // "/fetchPrice": {
+        //     post: createUser,
+        // },
+        // "/validatePAN": {
+        //     post: createUser,
+        // }
     },
     components: {
         securitySchemes: {
-            bearerAuth: {
-                type: 'http',
-                scheme: 'bearer',
-                bearerFormat: 'JWT',
-            },
         },
         schemas: {
-            createUserBody,
+            createSRBody,
         },
     },
 };
