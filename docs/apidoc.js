@@ -1,23 +1,11 @@
 const {createUser, createUserBody, deleteUser} = require("./users");
 
 const apiDocumentation = {
-    openapi: '3.1.0',
-    swagger: "2.0",
+    openapi: "3.0.3",
     info: {
-        version: '1.3.0',
-        swagger: "2.0",
+        version: '1.0.0',
         title: 'Sample REST API - Documentation',
-        description: 'Description of my API here',
-        termsOfService: 'https://mysite.com/terms',
-        contact: {
-            name: 'Developer name',
-            email: 'dev@example.com',
-            url: 'https://devwebsite.com',
-        },
-        license: {
-            name: 'Apache 2.0',
-            url: 'https://www.apache.org/licenses/LICENSE-2.0.html',
-        },
+        description: 'Sample REST API - Documentation',
     },
     servers: [
         {
@@ -34,10 +22,10 @@ const apiDocumentation = {
         },
     ],
     paths: {
-        users: {
+        "/users": {
             post: createUser,
         },
-        'users/{id}': {
+        "/users/{id}": {
             delete: deleteUser,
         },
     },

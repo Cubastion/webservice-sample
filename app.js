@@ -7,23 +7,24 @@ const app = express();
 const soap = require("soap");
 const server = require("http").createServer(app);
 const swaggerUi = require('swagger-ui-express');
-const apiDocumentation = require('./docs/apidoc');
+const apiDoc = require('./docs/apidoc');
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiDoc.apiDocumentation));
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
+//***********************************REST APIs***********************************
+let restRoutes = require("./routes/restapi");
+app.use(express.json());
+app.use("/api/v1/rest/", restRoutes);
+//***********************************REST APIs***********************************
 
-server.listen(8081, () => {
-  console.log("Application started and Listening on port 8081");
-});
-
+//***********************************SOAP APIs***********************************
 const createSRService = {
   CreateSR_Service: {
     CreateSR_Port: {
       CreateSR_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         const integrationId = args.integrationId;
         return {
           integrationId: integrationId,
@@ -38,7 +39,6 @@ const submitExpenseReportService = {
   SubmitExpenseReport_Service: {
     SubmitExpenseReport_Port: {
       SubmitExpenseReport_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         const integrationId = args.integrationId;
         let ListOfExpenseReportItemOutput = {expenseReportItem: []};
         args.ListOfExpenseReportItemInput?.expenseReportItem?.forEach((data) => {
@@ -58,7 +58,6 @@ const submitHealthPolicyService = {
   SubmitHealthPolicy_Service: {
     SubmitHealthPolicy_Port: {
       SubmitHealthPolicy_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         const integrationId = args.integrationId;
         let ListOfInsuredOutput = {insured: []};
         args.ListOfInsuredInput?.insured?.forEach((data) => {
@@ -78,7 +77,6 @@ const calculatePremiumService = {
   CalculatePremium_Service: {
     CalculatePremium_Port: {
       CalculatePremium_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         const age = args.age;
         const sumInsured = args.sumInsured;
         const factor = 0 < age <= 10 ? 4 : 10 < age <= 25 ? 5 : 25 < age <= 45 ? 6 : 45 < age <= 60 ? 7 : 60 < age ? 9 : 1;
@@ -94,7 +92,6 @@ const fetchPriceService = {
   FetchPrice_Service: {
     FetchPrice_Port: {
       FetchPrice_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         let ListOfItems = {items: []};
         const min = 20, max = 40;
         args.ListOfItems?.items?.forEach((data) => {
@@ -113,7 +110,6 @@ const validatePANService = {
   ValidatePAN_Service: {
     ValidatePAN_Port: {
       ValidatePAN_Operation: function (args) {
-        console.log('Request Body: '+JSON.stringify(args));
         const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
         return {
           status_message: regex.test(args.pan) ? "PAN Number format is valid" : "PAN Number format in not valid"
@@ -130,9 +126,14 @@ let calculatePremiumWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/calculat
 let fetchPriceWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/fetchPrice.wsdl"), "utf8");
 let validatePANWSDL = fs.readFileSync(path.join(__dirname, "./wsdl/validatePAN.wsdl"), "utf8");
 
-soap.listen(server, "/createSR", createSRService, srWSDL);
-soap.listen(server, "/submitExpenseReport", submitExpenseReportService, expenseReportWSDL);
-soap.listen(server, "/submitHealthPolicy", submitHealthPolicyService, healthPolicyWSDL);
-soap.listen(server, "/calculatePremium", calculatePremiumService, calculatePremiumWSDL);
-soap.listen(server, "/calculatePremium", fetchPriceService, fetchPriceWSDL);
-soap.listen(server, "/validatePAN", validatePANService, validatePANWSDL);
+soap.listen(server, "/api/v1/soap/createSR", createSRService, srWSDL);
+soap.listen(server, "/api/v1/soap/submitExpenseReport", submitExpenseReportService, expenseReportWSDL);
+soap.listen(server, "/api/v1/soap/submitHealthPolicy", submitHealthPolicyService, healthPolicyWSDL);
+soap.listen(server, "/api/v1/soap/calculatePremium", calculatePremiumService, calculatePremiumWSDL);
+soap.listen(server, "/api/v1/soap/fetchPrice", fetchPriceService, fetchPriceWSDL);
+soap.listen(server, "/api/v1/soap/validatePAN", validatePANService, validatePANWSDL);
+//***********************************SOAP APIs***********************************
+
+server.listen(8081, () => {
+  console.log("Application started and Listening on port 8081");
+});

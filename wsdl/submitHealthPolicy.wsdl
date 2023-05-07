@@ -45,7 +45,7 @@
 					<xsd:element name="age" type="xsd:int"/>
 					<xsd:element name="currencyCode" type="xsd:string"/>
 					<xsd:element name="sumInsured" type="xsd:double"/>
-					<xsd:element name="oremium" type="xsd:double"/>
+					<xsd:element name="premium" type="xsd:double"/>
 				</xsd:sequence>
 			</xsd:complexType>
 		</xsd:schema>
