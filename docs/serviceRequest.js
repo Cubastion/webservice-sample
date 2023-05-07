@@ -1,11 +1,8 @@
 const createSR = {
-    description: 'Create a new Service Request using REST API',
+    description: 'Create a new Service Request in external system using REST API',
     operationId: 'createSR',
-    security: [
-        {
-            bearerAuth: [],
-        },
-    ],
+    consumes: ["application/json"],
+    produces: ["application/json"],
     requestBody: {
         content: {
             'application/json': {
