@@ -12,7 +12,8 @@ const swaggerSpec = swaggerJSDoc(apiDefinition);
 app.use('/api/v1/rest/docs', swaggerUi.serve, swaggerUi.setup(apiDoc.apiDocumentation));
 app.get('/api/v1/rest/sbl-trn-rest-api.yaml', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(yaml.dump(swaggerSpec));
+  // res.send(yaml.dump(swaggerSpec));
+  res.send(swaggerSpec);
 });
 app.use(express.json());
 app.use("/api/v1/rest/", restRoutes);
