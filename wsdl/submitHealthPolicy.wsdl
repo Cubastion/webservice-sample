@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitHealthPolicy">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitHealthPolicy/in" xmlns:xsd2="http://cubastion.net/submitHealthPolicy/out">
 	<wsdl:types>
 		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/xml">
-			<xsd:import namespace="http://cubastion.net/submitHealthPolicy" />
+			<xsd:import namespace="http://cubastion.net/submitHealthPolicy/in" />
+			<xsd:import namespace="http://cubastion.net/submitHealthPolicy/out" />
 			<xsd:element name="submitHealthPolicyInput">
 				<xsd:complexType>
 					<xsd:sequence>
@@ -24,12 +25,12 @@
 					<xsd:sequence>
 						<xsd:element name="integrationId" type="xsd:string"/>
 						<xsd:element name="policyNumber" type="xsd:string"/>
-						<xsd:element ref="xsd1:ListOfInsuredOutput"/>
+						<xsd:element ref="xsd2:ListOfInsuredOutput"/>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitHealthPolicy">
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitHealthPolicy/in">
 			<xsd:element name="ListOfInsuredInput" type="xsd1:ListOfInsuredInput"/>
 			<xsd:complexType name="ListOfInsuredInput">
 				<xsd:sequence>
@@ -49,11 +50,11 @@
 				</xsd:sequence>
 			</xsd:complexType>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitHealthPolicy">
-			<xsd:element name="ListOfInsuredOutput" type="xsd1:ListOfInsuredOutput"/>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitHealthPolicy/out">
+			<xsd:element name="ListOfInsuredOutput" type="xsd2:ListOfInsuredOutput"/>
 			<xsd:complexType name="ListOfInsuredOutput">
 				<xsd:sequence>
-					<xsd:element name="insured" maxOccurs="unbounded" minOccurs="1" type="xsd1:insuredOutput"/>
+					<xsd:element name="insured" maxOccurs="unbounded" minOccurs="1" type="xsd2:insuredOutput"/>
 				</xsd:sequence>
 			</xsd:complexType>
 			<xsd:complexType name="insuredOutput">

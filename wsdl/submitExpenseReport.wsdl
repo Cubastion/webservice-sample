@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitExpenseReport">
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://cubastion.net/xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cubastion.net/xml" xmlns:xsd1="http://cubastion.net/submitExpenseReport/in" xmlns:xsd2="http://cubastion.net/submitExpenseReport/out">
 	<wsdl:types>
 		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/xml">
-			<xsd:import namespace="http://cubastion.net/submitExpenseReport" />
+			<xsd:import namespace="http://cubastion.net/submitExpenseReport/in" />
+			<xsd:import namespace="http://cubastion.net/submitExpenseReport/out" />
 			<xsd:element name="submitExpenseReportInput">
 				<xsd:complexType>
 					<xsd:sequence>
@@ -21,12 +22,12 @@
 					<xsd:sequence>
 						<xsd:element name="integrationId" type="xsd:string"/>
 						<xsd:element name="expenseReportNumber" type="xsd:string"/>
-						<xsd:element ref="xsd1:ListOfExpenseReportItemOutput"/>
+						<xsd:element ref="xsd2:ListOfExpenseReportItemOutput"/>
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport/in">
 			<xsd:element name="ListOfExpenseReportItemInput" type="xsd1:ListOfExpenseReportItemInput"/>
 			<xsd:complexType name="ListOfExpenseReportItemInput">
 				<xsd:sequence>
@@ -44,11 +45,11 @@
 				</xsd:sequence>
 			</xsd:complexType>
 		</xsd:schema>
-		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport">
-			<xsd:element name="ListOfExpenseReportItemOutput" type="xsd1:ListOfExpenseReportItemOutput"/>
+		<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://cubastion.net/submitExpenseReport/out">
+			<xsd:element name="ListOfExpenseReportItemOutput" type="xsd2:ListOfExpenseReportItemOutput"/>
 			<xsd:complexType name="ListOfExpenseReportItemOutput">
 				<xsd:sequence>
-					<xsd:element name="expenseReportItem" maxOccurs="unbounded" minOccurs="1" type="xsd1:ExpenseReportItemOutput"/>
+					<xsd:element name="expenseReportItem" maxOccurs="unbounded" minOccurs="1" type="xsd2:ExpenseReportItemOutput"/>
 				</xsd:sequence>
 			</xsd:complexType>
 			<xsd:complexType name="ExpenseReportItemOutput">
