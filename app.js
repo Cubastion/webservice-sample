@@ -40,6 +40,6 @@ soap.listen(server, "/api/v1/soap/fetchPrice", soapController.fetchPriceService,
 soap.listen(server, "/api/v1/soap/validatePAN", soapController.validatePANService, validatePANWSDL);
 //*********************************************SOAP APIs*********************************************
 
-server.listen(8081, () => {
+server.listen(8080, () => {
   console.log("SOAP & REST API Server started and Listening on port 8081");
 });
