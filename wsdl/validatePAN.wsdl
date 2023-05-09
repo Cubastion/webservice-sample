@@ -44,7 +44,7 @@
 	</wsdl:binding>
 	<wsdl:service name="ValidatePAN_Service">
 		<wsdl:port name="ValidatePAN_Port" binding="tns:ValidatePAN_Binding">
-			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/validatePAN"/>
+			<soap:address location="http://trnwebservice.cubastion.net/api/v1/soap/validatePAN"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

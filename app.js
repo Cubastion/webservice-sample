@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-//*********************************************REST APIs*********************************************
+//************************************************************REST APIs************************************************************
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const apiDoc = require('./docs/apidoc');
@@ -17,9 +17,9 @@ app.get('/api/v1/rest/sbl-trn-rest-api.yaml', (req, res) => {
 });
 app.use(express.json());
 app.use("/api/v1/rest/", restRoutes);
-//*********************************************REST APIs*********************************************
+//************************************************************REST APIs************************************************************
 
-//*********************************************SOAP APIs*********************************************
+//************************************************************SOAP APIs************************************************************
 const fs = require("fs");
 const path = require("path");
 const soap = require("soap");
@@ -38,8 +38,8 @@ soap.listen(server, "/api/v1/soap/submitHealthPolicy", soapController.submitHeal
 soap.listen(server, "/api/v1/soap/calculatePremium", soapController.calculatePremiumService, calculatePremiumWSDL);
 soap.listen(server, "/api/v1/soap/fetchPrice", soapController.fetchPriceService, fetchPriceWSDL);
 soap.listen(server, "/api/v1/soap/validatePAN", soapController.validatePANService, validatePANWSDL);
-//*********************************************SOAP APIs*********************************************
+//************************************************************SOAP APIs************************************************************
 
-server.listen(8080, () => {
-  console.log("SOAP & REST API Server started and Listening on port 8081");
+server.listen(80, () => {
+  console.log("SOAP & REST API Server started and Listening on port 80");
 });

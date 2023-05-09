@@ -13,7 +13,7 @@ const apiDocumentation = {
     ],
     servers: [
         {
-            url: 'http://webservice.ws.svc.cluster.local:8081/api/v1/rest/',
+            url: 'http://trnwebservice.cubastion.net/api/v1/rest/',
             description: 'Siebel Training Webservice Server',
         },
     ],

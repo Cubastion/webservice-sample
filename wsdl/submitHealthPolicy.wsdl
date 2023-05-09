@@ -90,7 +90,7 @@
 	</wsdl:binding>
 	<wsdl:service name="SubmitHealthPolicy_Service">
 		<wsdl:port name="SubmitHealthPolicy_Port" binding="tns:SubmitHealthPolicy_Binding">
-			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/submitHealthPolicy"/>
+			<soap:address location="http://trnwebservice.cubastion.net/api/v1/soap/submitHealthPolicy"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

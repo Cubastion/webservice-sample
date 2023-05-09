@@ -62,7 +62,7 @@
 	</wsdl:binding>
 	<wsdl:service name="FetchPrice_Service">
 		<wsdl:port name="FetchPrice_Port" binding="tns:FetchPrice_Binding">
-			<soap:address location="http://webservice.ws.svc.cluster.local:8081/api/v1/soap/fetchPrice"/>
+			<soap:address location="http://trnwebservice.cubastion.net/api/v1/soap/fetchPrice"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
