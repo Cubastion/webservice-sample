@@ -1,22 +1,19 @@
-const {createSR, createSRRequest, createSRResponse} = require("./serviceRequest");
+const {createSR, createSRBody} = require("./serviceRequest");
 
 const apiDocumentation = {
-    openapi: "2.0",
-    swagger: "2.0",
+    openapi: "3.0.3",
+    // swagger: "2.0",
     info: {
-        version: 'v1',
+        version: '1.0.0',
         title: 'Siebel Training REST API',
         description: 'Sample REST APIs for Siebel Training',
     },
-    // host: "http://trnwebservice.cubastion.net/api/v1/rest/",
-    host: "localhost/api/v1/rest/",
     schemes: [
         "http"
     ],
     servers: [
         {
-            // url: 'http://trnwebservice.cubastion.net/api/v1/rest/',
-            url: 'localhost/api/v1/rest/',
+            url: 'http://trnwebservice.cubastion.net/api/v1/rest/',
             description: 'Siebel Training Webservice Server',
         },
     ],
@@ -44,8 +41,7 @@ const apiDocumentation = {
         securitySchemes: {
         },
         schemas: {
-            createSRRequest,
-            createSRResponse
+            createSRBody,
         },
     },
 };

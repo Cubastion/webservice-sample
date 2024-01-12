@@ -3,32 +3,33 @@ const createSR = {
     operationId: 'createSR',
     consumes: ["application/json"],
     produces: ["application/json"],
-    parameters: [{
-        in: "body",
-        name: "body",
-        description: "SR Request Object",
-        // required: true,
-        schema: {
-            $ref: '#/components/schemas/createSRRequest',
-        }
-    },
-        {
-            out: "body",
-            name: "body",
-            description: "SR Response Object",
-            // required: true,
-            schema: {
-                $ref: '#/components/schemas/createSRResponse',
-            }
+    requestBody: {
+        content: {
+            'application/json': {
+                schema: {
+                    $ref: '#/components/schemas/createSRBody',
+                },
+            },
         },
-    ],
+        required: true,
+    },
     responses: {
-        '200': {
+        '203': {
             description: 'SR created successfully!',
             content: {
                 'application/json': {
                     schema: {
-                        $ref: '#/components/schemas/createSRResponse',
+                        type: 'object',
+                        properties: {
+                            integrationId: {
+                                type: 'string',
+                                example: '88-ABDC198',
+                            },
+                            srNumber: {
+                                type: 'string',
+                                example: 'b26b3713f276e952ea32db9ad90d0538',
+                            },
+                        },
                     },
                 },
             },
@@ -52,11 +53,11 @@ const createSR = {
     },
 };
 
-const createSRRequest = {
+const createSRBody = {
     type: 'object',
     properties: {
-        integrationId: {
-            type: 'string',
+        fullName: {
+            type: 'integrationId',
             example: '88-ABDC198',
         },
         accountName: {
@@ -110,18 +111,4 @@ const createSRRequest = {
     },
 };
 
-const createSRResponse = {
-    type: 'object',
-    properties: {
-        integrationId: {
-            type: 'string',
-            example: '88-ABDC198',
-        },
-        srNumber: {
-            type: 'string',
-            example: 'b26b3713f276e952ea32db9ad90d0538'
-        },
-    },
-};
-
-module.exports = { createSR, createSRRequest, createSRResponse};
+module.exports = { createSR, createSRBody};
